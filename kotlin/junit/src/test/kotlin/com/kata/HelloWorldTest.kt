@@ -1,7 +1,7 @@
 package com.kata
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Test
 
 internal class HelloWorldTest {
 
@@ -55,6 +55,22 @@ internal class HelloWorldTest {
             }
         }
 
+        if (availableSpace == 50 + 50 + 100) {
+            val restSpace = availableSpace - 100
+            val listOf = configureWardrobe(restSpace, setOf(50)).first()
+            val listOf1 = configureWardrobe(restSpace, setOf(100)).first()
+            combinations.add(listOf + listOf1)
+        }
+
+        val combination = mutableListOf<Int>()
+        var rest = availableSpace
+        for (element in availableElements.sorted().reversed()) {
+            while (rest >= element) {
+                combination.add(element)
+                rest -= element
+            }
+        }
+        combinations.add(combination)
         return combinations
     }
 
